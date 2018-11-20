@@ -1,0 +1,1 @@
+Projeto de EC206 que visa controlar os eletrodomésticos de uma residência(via MTQQ protocol), transformando a casa em uma IoT home.
