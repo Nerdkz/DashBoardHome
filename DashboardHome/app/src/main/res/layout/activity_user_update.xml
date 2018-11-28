@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.UserUpdateActivity">
+
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -21,7 +21,7 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <EditText
-        android:id="@+id/emailId"
+        android:id="@+id/newEmailId"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -31,7 +31,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="0dp"
         android:ems="10"
-        android:hint="@string/user_name_style"
+        android:hint="@string/new_username_email"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorPrimaryDark" />
 
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="330dp"
+        android:layout_marginTop="300dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Password"
@@ -49,16 +49,17 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <EditText
-        android:id="@+id/passwordId"
+        android:id="@+id/newPasswordId"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
         android:layout_marginLeft="120dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="295dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
 
         android:ems="10"
+        android:hint="@string/new_password_style"
         android:inputType="textPassword"
         android:textColor="@color/colorPrimaryDark" />
 
@@ -74,26 +75,29 @@
         app:srcCompat="@drawable/icon_image_grey" />
 
     <Button
-        android:id="@+id/botaoSigninId"
-        android:layout_width="wrap_content"
+        android:id="@+id/botaoUpdateUserId"
+        android:layout_width="148dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="450dp"
-        android:layout_marginBottom="70dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/botao_signin"
-        android:textColor="@android:color/background_light" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="119dp"
+        android:layout_marginRight="119dp"
+        android:layout_marginBottom="114dp"
+        android:background="@color/colorPrimary"
+        android:text="Upadate"
+        android:textColor="@color/colorSecundary" />
 
     <Button
-        android:id="@+id/botaoRegisterId"
-        android:layout_width="wrap_content"
+        android:id="@+id/botaoSetUpId"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
-        android:layout_marginLeft="220dp"
-        android:layout_marginTop="450dp"
-        android:layout_marginBottom="70dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/botao_register_style"
+        android:layout_alignEnd="@+id/botaoUpdateUserId"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginBottom="33dp"
+        android:background="@color/colorPrimary"
+        android:text="Go SetUP"
         android:textColor="@color/colorSecundary" />
+
 </RelativeLayout>

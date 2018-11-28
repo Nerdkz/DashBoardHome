@@ -23,4 +23,6 @@
     <string name="topic_style" translatable="false">Ex: LuzQuarto</string>
     <string name="value_style">Liga/Desliga</string>
     <string name="nameButton_style">Luz</string>
+    <string name="new_username_email">(NEW) username@hotmail.com</string>
+    <string name="new_password_style">(NEW) password</string>
 </resources>

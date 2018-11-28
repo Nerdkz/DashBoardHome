@@ -1,4 +1,4 @@
-package br.com.dashboardhome.nerdzk.dashboardhome.Model;
+package br.com.dashboardhome.nerdzk.dashboardhome.model;
 
 public class User {
 

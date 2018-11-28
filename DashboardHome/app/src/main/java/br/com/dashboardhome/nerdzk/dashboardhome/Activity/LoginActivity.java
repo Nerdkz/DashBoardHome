@@ -1,5 +1,6 @@
-package br.com.dashboardhome.nerdzk.dashboardhome.Activity;
+package br.com.dashboardhome.nerdzk.dashboardhome.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +14,11 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import br.com.dashboardhome.nerdzk.dashboardhome.Model.Connection;
+import br.com.dashboardhome.nerdzk.dashboardhome.model.Connection;
 import br.com.dashboardhome.nerdzk.dashboardhome.R;
+import br.com.dashboardhome.nerdzk.dashboardhome.model.dao.BotaoDao;
+import br.com.dashboardhome.nerdzk.dashboardhome.model.dao.ConnectionDao;
+import br.com.dashboardhome.nerdzk.dashboardhome.model.dao.UserDao;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText port;
     private EditText hostName;
     private Button botaoSave;
+    private Button botaoDeleteUser;
+    private Button botaoDeleteConnection;
 
     Connection connection = new Connection();
 
@@ -34,7 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         port = findViewById(R.id.portId);
         hostName = findViewById(R.id.hostnameId);
         botaoSave = findViewById(R.id.botaoSaveId);
-
+        botaoDeleteUser = findViewById(R.id.botaoDeleteUserId);
+        botaoDeleteConnection = findViewById(R.id.botaoDeleteConnectionId);
 
         String clientId = MqttClient.generateClientId();
         MqttAndroidClient client =
@@ -68,8 +75,25 @@ public class LoginActivity extends AppCompatActivity {
                 connection.setPort( port.getText().toString() );
                 connection.setClientId( hostName.getText().toString() );
 
+                ConnectionDao.getInstance().cadastrarConnection( connection );
+                Toast.makeText( LoginActivity.this, "Connection cadastrada com sucesso!", Toast.LENGTH_LONG).show();
             }
         });
 
+        botaoDeleteUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserDao.getInstance().excluirUsuarioAutenticado(LoginActivity.this);
+                startActivity( new Intent( LoginActivity.this, MainActivity.class));
+            }
+        });
+
+        botaoDeleteConnection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConnectionDao.getInstance().deletarConnection( connection );
+                Toast.makeText(LoginActivity.this, "Connection deletada com sucesso!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

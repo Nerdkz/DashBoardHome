@@ -1,4 +1,4 @@
-package br.com.dashboardhome.nerdzk.dashboardhome.Activity;
+package br.com.dashboardhome.nerdzk.dashboardhome.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -16,9 +16,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import br.com.dashboardhome.nerdzk.dashboardhome.Model.Connection;
-import br.com.dashboardhome.nerdzk.dashboardhome.Model.User;
 import br.com.dashboardhome.nerdzk.dashboardhome.R;
+import br.com.dashboardhome.nerdzk.dashboardhome.model.*;
+import br.com.dashboardhome.nerdzk.dashboardhome.model.dao.UserDao;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,10 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Button botaoSignin;
     private Button botaoRegister;
 
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference firebaseReference = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference userReference = firebaseReference.child("Users");
-    private DatabaseReference connectionReference = firebaseReference.child("Conections");
+
 
     User user = new User();
     Connection connection = new Connection();
@@ -62,22 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     user.setUsername( emailDigitado );
                     user.setPassword( senhaDigitada );
 
-                    firebaseAuth = FirebaseAuth.getInstance();
-
-                    //Login usuario
-                    firebaseAuth.signInWithEmailAndPassword( emailDigitado, senhaDigitada ).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if( task.isSuccessful() ){
-                                Toast.makeText( MainActivity.this, "Login feito com sucesso!", Toast.LENGTH_LONG ).show();
-                                startActivity( new Intent( MainActivity.this, LoginActivity.class));
-                            }
-                            else{
-                                Toast.makeText( MainActivity.this, "Não Logado!", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
+                    UserDao userDao = UserDao.getInstance();
+                    userDao.autenticarUsuario( user, MainActivity.this);
                 }
 
             }

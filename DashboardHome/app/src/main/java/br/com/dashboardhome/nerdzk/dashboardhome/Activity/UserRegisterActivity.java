@@ -1,4 +1,4 @@
-package br.com.dashboardhome.nerdzk.dashboardhome.Activity;
+package br.com.dashboardhome.nerdzk.dashboardhome.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -15,12 +15,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import br.com.dashboardhome.nerdzk.dashboardhome.R;
+import br.com.dashboardhome.nerdzk.dashboardhome.model.User;
+import br.com.dashboardhome.nerdzk.dashboardhome.model.dao.UserDao;
 
 public class UserRegisterActivity extends AppCompatActivity {
 
+    private  EditText newEmail;
     private EditText email;
     private EditText password;
     private Button botaoSignup;
+    private Button botaoUpdate;
 
     private FirebaseAuth cadastro;
 
@@ -32,6 +36,8 @@ public class UserRegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.emailId);
         password = findViewById(R.id.passwordId);
         botaoSignup = findViewById(R.id.botaoSignupId);
+        botaoUpdate = findViewById(R.id.botaoUpdateUserId);
+        newEmail = findViewById(R.id.newEmailId);
 
         botaoSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,32 +52,20 @@ public class UserRegisterActivity extends AppCompatActivity {
                 else if( passwordDigitado.isEmpty() ){
                     Toast.makeText( UserRegisterActivity.this, "Campo Password vazio!", Toast.LENGTH_LONG).show();
                 }
+                else if( passwordDigitado.length() < 6){
+                    Toast.makeText( UserRegisterActivity.this, "Digite uma senha com no mínimo 6 caracteres!", Toast.LENGTH_LONG).show();
+
+                }
                 else{
-
-
-                    cadastro = FirebaseAuth.getInstance();
-
-                    //Cadastro usuario
-                    cadastro.createUserWithEmailAndPassword( emailDigitado, passwordDigitado).addOnCompleteListener(UserRegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                            if( task.isSuccessful() ){ // Sucesso
-                                Toast.makeText( UserRegisterActivity.this, "Cadastro feito com Sucesso!", Toast.LENGTH_LONG).show();
-                                cadastro.signOut();
-                                startActivity( new Intent( UserRegisterActivity.this, MainActivity.class)); // navegando para a activity login
-                            }
-
-                            else{ // erro
-                                Toast.makeText( UserRegisterActivity.this, "erro ao Cadastrar!", Toast.LENGTH_LONG).show();
-                                Toast.makeText( UserRegisterActivity.this, "Email já cadastrado!", Toast.LENGTH_LONG).show();
-                            }
-
-                        }
-                    });
+                    User user = new User();
+                    user.setUsername( emailDigitado );
+                    user.setPassword( passwordDigitado );
+                    UserDao.getInstance().cadastrarUsuario( user, UserRegisterActivity.this );
 
                 }
             }
         });
+
+
     }
 }
